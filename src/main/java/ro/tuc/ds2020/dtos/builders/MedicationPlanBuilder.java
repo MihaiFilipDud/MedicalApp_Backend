@@ -18,8 +18,10 @@ public class MedicationPlanBuilder {
         }
 
         return new MedicationPlanDTO(medicationPlan.getId(),
-                medicationPlan.getDailyInatkes(),
-                medicationPlan.getTreatmentPeriod(),
+                medicationPlan.getIntakeIntervalStart(),
+                medicationPlan.getIntakeIntervalEnd(),
+                medicationPlan.getTreatmentStart(),
+                medicationPlan.getIntakeIntervalEnd(),
                 meds);
     }
 
@@ -31,10 +33,11 @@ public class MedicationPlanBuilder {
         for(MedicationDTO m : medicationPlanDTO.getMedications()){
             meds.add(MedicationBuilder.toEntity(m));
         }
-        return new MedicationPlan(medicationPlanDTO.getDailyInatkes(),
-                medicationPlanDTO.getTreatmentPeriod(),
+        return new MedicationPlan(medicationPlanDTO.getIntakeIntervalStart(),
+                medicationPlanDTO.getIntakeIntervalEnd(),
+                medicationPlanDTO.getTreatmentStart(),
+                medicationPlanDTO.getTreatmentEnd(),
                 medicationPlanDTO.getPatient(),
                 meds);
-
     }
 }

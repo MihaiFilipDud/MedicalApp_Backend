@@ -10,6 +10,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -24,18 +26,21 @@ public class MedicationPlan implements Serializable {
     @Type(type = "uuid-char")
     private UUID id;
 
-    @Column(name = "daily_intakes")
-    private String dailyInatkes;
+    @Column(name = "intake_interval_start")
+    private Time intakeIntervalStart;
 
-    @Column(name = "treatment_period")
-    private String treatmentPeriod;
+    @Column(name = "intake_interval_end")
+    private Time intakeIntervalEnd;
 
-    @Column(name = "")
+    @Column(name = "treatment_start")
+    private Date treatmentStart;
+
+    @Column(name = "treatment_end")
+    private Date treatmentEnd;
+
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "patient_id")
-    //@JsonBackReference
-    //@JsonIgnore
     private Patient patient;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
@@ -49,17 +54,60 @@ public class MedicationPlan implements Serializable {
     public MedicationPlan() {
     }
 
-
-    public MedicationPlan(String dailyInatkes, String treatmentPeriod, Patient patient, List<Medication> medications) {
-        this.dailyInatkes = dailyInatkes;
-        this.treatmentPeriod = treatmentPeriod;
+    public MedicationPlan(Time intakeStart, Time intakeEnd, Date treatmentStart, Date treatmentEnd, Patient patient, List<Medication> medications){
+        this.intakeIntervalStart = intakeStart;
+        this.intakeIntervalEnd = intakeEnd;
+        this.treatmentStart = treatmentStart;
+        this.treatmentEnd = treatmentEnd;
         this.patient = patient;
         this.medications = medications;
     }
 
-    public MedicationPlan(String dailyInatkes, String treatmentPeriod) {
-        this.dailyInatkes = dailyInatkes;
-        this.treatmentPeriod = treatmentPeriod;
+    public MedicationPlan(Time intakeStart, Time intakeEnd, Date treatmentStart, Date treatmentEnd){
+        this.intakeIntervalStart = intakeStart;
+        this.intakeIntervalEnd = intakeEnd;
+        this.treatmentStart = treatmentStart;
+        this.treatmentEnd = treatmentEnd;
+    }
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public Time getIntakeIntervalStart() {
+        return intakeIntervalStart;
+    }
+
+    public void setIntakeIntervalStart(Time intakeIntervalStart) {
+        this.intakeIntervalStart = intakeIntervalStart;
+    }
+
+    public Time getIntakeIntervalEnd() {
+        return intakeIntervalEnd;
+    }
+
+    public void setIntakeIntervalEnd(Time intakeIntervalEnd) {
+        this.intakeIntervalEnd = intakeIntervalEnd;
+    }
+
+    public Date getTreatmentStart() {
+        return treatmentStart;
+    }
+
+    public void setTreatmentStart(Date treatmentStart) {
+        this.treatmentStart = treatmentStart;
+    }
+
+    public Date getTreatmentEnd() {
+        return treatmentEnd;
+    }
+
+    public void setTreatmentEnd(Date treatmentEnd) {
+        this.treatmentEnd = treatmentEnd;
     }
 
     public Patient getPatient() {
@@ -76,29 +124,5 @@ public class MedicationPlan implements Serializable {
 
     public void setMedications(List<Medication> medications) {
         this.medications = medications;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getDailyInatkes() {
-        return dailyInatkes;
-    }
-
-    public void setDailyInatkes(String dailyInatkes) {
-        this.dailyInatkes = dailyInatkes;
-    }
-
-    public String getTreatmentPeriod() {
-        return treatmentPeriod;
-    }
-
-    public void setTreatmentPeriod(String treatmentPeriod) {
-        this.treatmentPeriod = treatmentPeriod;
     }
 }

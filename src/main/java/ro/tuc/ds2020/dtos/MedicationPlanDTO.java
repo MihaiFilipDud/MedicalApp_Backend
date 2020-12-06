@@ -7,7 +7,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import ro.tuc.ds2020.entities.Medication;
 import ro.tuc.ds2020.entities.Patient;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,58 +21,58 @@ public class MedicationPlanDTO {
 
     private UUID id;
 
-    @NotNull
-    private String dailyInatkes;
+    private Time intakeIntervalStart;
 
-    @NotNull
-    private String treatmentPeriod;
+    private Time intakeIntervalEnd;
 
-    //@JsonIgnore
+    private Date treatmentStart;
+
+    private Date treatmentEnd;
+
     private Patient patient;
-
 
     private List<MedicationDTO> medications;
 
 
-
-    public MedicationPlanDTO(@NotNull UUID id, @NotNull String dailyInatkes, @NotNull String treatmentPeriod, Patient patient, List<MedicationDTO> medications) {
+    public MedicationPlanDTO(UUID id, Time intakeIntervalStart, Time intakeIntervalEnd, Date treatmentStart, Date treatmentEnd, Patient patient, List<MedicationDTO> medications) {
         this.id = id;
-        this.dailyInatkes = dailyInatkes;
-        this.treatmentPeriod = treatmentPeriod;
+        this.intakeIntervalStart = intakeIntervalStart;
+        this.intakeIntervalEnd = intakeIntervalEnd;
+        this.treatmentStart = treatmentStart;
+        this.treatmentEnd = treatmentEnd;
         this.patient = patient;
         this.medications = medications;
     }
 
-    public MedicationPlanDTO(@NotNull UUID id, @NotNull String dailyInatkes, @NotNull String treatmentPeriod) {
+    public MedicationPlanDTO(UUID id, Time intakeIntervalStart, Time intakeIntervalEnd, Date treatmentStart, Date treatmentEnd, List<MedicationDTO> medications) {
         this.id = id;
-        this.dailyInatkes = dailyInatkes;
-        this.treatmentPeriod = treatmentPeriod;
-    }
-
-    public MedicationPlanDTO(@NotNull UUID id, @NotNull String dailyInatkes, @NotNull String treatmentPeriod, Patient patient) {
-        this.id = id;
-        this.dailyInatkes = dailyInatkes;
-        this.treatmentPeriod = treatmentPeriod;
-        this.patient = patient;
-    }
-
-    public MedicationPlanDTO(@NotNull UUID id, @NotNull String dailyInatkes, @NotNull String treatmentPeriod, List<MedicationDTO> medications) {
-        this.id = id;
-        this.dailyInatkes = dailyInatkes;
-        this.treatmentPeriod = treatmentPeriod;
-        this.medications = medications;
-    }
-
-    public MedicationPlanDTO(@NotNull String dailyInatkes, @NotNull String treatmentPeriod, Patient patient, List<MedicationDTO> medications) {
-        this.dailyInatkes = dailyInatkes;
-        this.treatmentPeriod = treatmentPeriod;
-        this.patient = patient;
+        this.intakeIntervalStart = intakeIntervalStart;
+        this.intakeIntervalEnd = intakeIntervalEnd;
+        this.treatmentStart = treatmentStart;
+        this.treatmentEnd = treatmentEnd;
         this.medications = medications;
     }
 
     public MedicationPlanDTO() {
-
     }
+
+//    public MedicationPlanDTO(Time intakeIntervalStart, Time intakeIntervalEnd, Date treatmentStart, Date treatmentEnd, Patient patient, List<MedicationDTO> medications) {
+//        this.intakeIntervalStart = intakeIntervalStart;
+//        this.intakeIntervalEnd = intakeIntervalEnd;
+//        this.treatmentStart = treatmentStart;
+//        this.treatmentEnd = treatmentEnd;
+//        this.patient = patient;
+//        this.medications = medications;
+//    }
+//
+//    public MedicationPlanDTO(Time intakeIntervalStart, Time intakeIntervalEnd, Date treatmentStart, Date treatmentEnd) {
+//        this.intakeIntervalStart = intakeIntervalStart;
+//        this.intakeIntervalEnd = intakeIntervalEnd;
+//        this.treatmentStart = treatmentStart;
+//        this.treatmentEnd = treatmentEnd;
+//    }
+
+
 
     public UUID getId() {
         return id;
@@ -79,20 +82,36 @@ public class MedicationPlanDTO {
         this.id = id;
     }
 
-    public String getDailyInatkes() {
-        return dailyInatkes;
+    public Time getIntakeIntervalStart() {
+        return intakeIntervalStart;
     }
 
-    public void setDailyInatkes(String dailyInatkes) {
-        this.dailyInatkes = dailyInatkes;
+    public void setIntakeIntervalStart(Time intakeIntervalStart) {
+        this.intakeIntervalStart = intakeIntervalStart;
     }
 
-    public String getTreatmentPeriod() {
-        return treatmentPeriod;
+    public Time getIntakeIntervalEnd() {
+        return intakeIntervalEnd;
     }
 
-    public void setTreatmentPeriod(String treatmentPeriod) {
-        this.treatmentPeriod = treatmentPeriod;
+    public void setIntakeIntervalEnd(Time intakeIntervalEnd) {
+        this.intakeIntervalEnd = intakeIntervalEnd;
+    }
+
+    public Date getTreatmentStart() {
+        return treatmentStart;
+    }
+
+    public void setTreatmentStart(Date treatmentStart) {
+        this.treatmentStart = treatmentStart;
+    }
+
+    public Date getTreatmentEnd() {
+        return treatmentEnd;
+    }
+
+    public void setTreatmentEnd(Date treatmentEnd) {
+        this.treatmentEnd = treatmentEnd;
     }
 
     public Patient getPatient() {
