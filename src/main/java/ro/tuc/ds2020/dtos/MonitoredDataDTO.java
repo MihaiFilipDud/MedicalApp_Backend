@@ -30,5 +30,44 @@ public class MonitoredDataDTO {
         return Math.abs(end.getTime() - start.getTime());
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getPatient_id() {
+        return patient_id;
+    }
+
+    public void setPatient_id(UUID patient_id) {
+        this.patient_id = patient_id;
+    }
+
+    public Date getStart() {
+        return start;
+    }
+
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public String getActivity() {
+        return activity;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
 }
 

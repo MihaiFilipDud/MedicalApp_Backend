@@ -34,6 +34,9 @@ public class Medication implements Serializable {
     //@JsonIgnore
     private List<MedicationPlan> medicationPlan;
 
+    @OneToMany(mappedBy = "medication", cascade = CascadeType.ALL)
+    private List<MedicationStatus> medicationStatuses;
+
     public Medication() {
     }
 
@@ -41,6 +44,14 @@ public class Medication implements Serializable {
         this.name = name;
         this.sideEffects = sideEffects;
         this.dosage = dosage;
+    }
+
+    public Medication(String name, String sideEffects, String dosage, List<MedicationPlan> medicationPlan, List<MedicationStatus> medicationStatuses) {
+        this.name = name;
+        this.sideEffects = sideEffects;
+        this.dosage = dosage;
+        this.medicationPlan = medicationPlan;
+        this.medicationStatuses = medicationStatuses;
     }
 
     public Medication(String name, String sideEffects, String dosage, List<MedicationPlan> medicationPlan) {
@@ -88,5 +99,13 @@ public class Medication implements Serializable {
 
     public void setMedicationPlan(List<MedicationPlan> medicationPlan) {
         this.medicationPlan = medicationPlan;
+    }
+
+    public List<MedicationStatus> getMedicationStatuses() {
+        return medicationStatuses;
+    }
+
+    public void setMedicationStatuses(List<MedicationStatus> medicationStatuses) {
+        this.medicationStatuses = medicationStatuses;
     }
 }

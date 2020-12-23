@@ -10,8 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class MonitoredDataDetailsDTO {
 
     private PatientDTO patient;
@@ -20,7 +19,16 @@ public class MonitoredDataDetailsDTO {
     private Date end;
     private String activity;
 
+    public MonitoredDataDetailsDTO(PatientDTO patient, CaregiverDTO caregiver, Date start, Date end, String activity) {
+        this.patient = patient;
+        this.caregiver = caregiver;
+        this.start = start;
+        this.end = end;
+        this.activity = activity;
+    }
 
+    public MonitoredDataDetailsDTO() {
+    }
 
     public long timeDif() {
         return Math.abs(end.getTime() - start.getTime());
