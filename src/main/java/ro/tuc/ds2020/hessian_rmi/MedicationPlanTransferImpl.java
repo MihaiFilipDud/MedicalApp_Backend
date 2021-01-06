@@ -42,7 +42,7 @@ public class MedicationPlanTransferImpl implements MedicationPlanTransfer {
 
         Date curDate = new Date();
         for (MedicationPlan medicationPlan: medicationPlanList){
-            //System.out.println(curDate.getTime()+"  "+medicationPlan.getTreatmentStart().getTime()+"  "+medicationPlan.getTreatmentEnd().getTime());
+            System.out.println(curDate.getTime()+"  "+medicationPlan.getTreatmentStart().getTime()+"  "+medicationPlan.getTreatmentEnd().getTime());
             if(curDate.getTime() > medicationPlan.getTreatmentStart().getTime() && curDate.getTime() < medicationPlan.getTreatmentEnd().getTime()){
                 activeMedPlans.add(medicationPlan);
             }
