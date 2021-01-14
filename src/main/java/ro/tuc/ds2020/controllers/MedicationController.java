@@ -3,6 +3,7 @@ package ro.tuc.ds2020.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ro.tuc.ds2020.dtos.MedicationDTO;
 import ro.tuc.ds2020.dtos.PatientDTO;
@@ -26,24 +27,28 @@ public class MedicationController {
     }
 
     @GetMapping()
+    @Secured({"ROLE_DOCTOR", "ROLE_CAREGIVER", "ROLE_PATIENT"})
     public ResponseEntity<List<MedicationDTO>> getMedications() {
         List<MedicationDTO> dtos = medicationService.findMedications();
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
     @PostMapping()
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<UUID> insertProsumer(@Valid @RequestBody MedicationDTO medicationDTO) {
         UUID medicationID = medicationService.insert(medicationDTO);
         return new ResponseEntity<>(medicationID, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<MedicationDTO> getMedication(@PathVariable("id") UUID medicationId) {
         MedicationDTO dto = medicationService.findMedicationById(medicationId);
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @PostMapping(value = "/delete/{id}")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<MedicationDTO> deleteMedication(@PathVariable("id") UUID medicationId) {
         medicationService.deleteById(medicationId);
         return new ResponseEntity<>(new MedicationDTO(), HttpStatus.OK);
@@ -51,6 +56,7 @@ public class MedicationController {
 
 
     @PostMapping(value = "/update/{id}")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<UUID> updateMedication(@Valid @RequestBody MedicationDTO medicationDTO) {
         UUID medicationID = medicationService.update(medicationDTO);
         return new ResponseEntity<>(medicationID, HttpStatus.OK);

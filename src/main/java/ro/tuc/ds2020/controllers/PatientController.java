@@ -5,6 +5,7 @@ import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ro.tuc.ds2020.dtos.AccountDTO;
 import ro.tuc.ds2020.dtos.MedicationPlanDTO;
@@ -38,6 +39,7 @@ public class PatientController {
     }
 
     @GetMapping()
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<List<PatientDTO>> getPatients() {
 
         List<PatientDTO> dtos = patientService.findPatients();
@@ -52,12 +54,14 @@ public class PatientController {
     }
 
     @PostMapping()
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<UUID> insertProsumer(@RequestBody PatientDTO patientDTO) {
         UUID patientID = patientService.insert(patientDTO);
         return new ResponseEntity<>(patientID, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}")
+    @Secured({"ROLE_DOCTOR", "ROLE CAREGIVER", "ROLE_PATIENT"})
     public ResponseEntity<PatientDTO> getPatient(@PathVariable("id") UUID patientId) {
         PatientDTO dto = patientService.findPatientById(patientId);
         System.out.println(dto);
@@ -66,6 +70,7 @@ public class PatientController {
     }
 
     @PostMapping(value = "/delete/{id}")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<PatientDTO> deletePatient(@PathVariable("id") UUID patientId) {
         patientService.deleteById(patientId);
         return new ResponseEntity<>(new PatientDTO(), HttpStatus.OK);
@@ -73,12 +78,14 @@ public class PatientController {
 
 
     @PostMapping(value = "/update/{id}")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<UUID> updatePatient(@RequestBody PatientDTO patientDTO) {
         UUID patientID = patientService.update(patientDTO);
         return new ResponseEntity<>(patientID, HttpStatus.OK);
     }
 
     @PostMapping(value = "/register")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<UUID> registerPatient(@RequestBody PatientDTO patientDTO){
 
         UUID patientID = patientService.registerPatient(patientDTO);
@@ -86,6 +93,7 @@ public class PatientController {
     }
 
     @PostMapping(value = "/addCaregiver")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<UUID> addCaregiver(@RequestParam(value="c_id") UUID caregiverID, @RequestParam(value="p_id") UUID patientID){
 
         UUID id = patientService.addCaregiver(caregiverID, patientID);
@@ -93,6 +101,7 @@ public class PatientController {
     }
 
     @PostMapping(value = "/getMedicationPlans")
+    @Secured({"ROLE_DOCTOR", "ROLE_CAREGIVER", "ROLE_PATIENT"})
     public ResponseEntity<List<MedicationPlanDTO>>getPatients(@RequestBody UUID patientID) {
         List<MedicationPlanDTO> dtos = medicationPlanService.findMedicationPlansForPatient(patientID);
         return new ResponseEntity<>(dtos, HttpStatus.OK);

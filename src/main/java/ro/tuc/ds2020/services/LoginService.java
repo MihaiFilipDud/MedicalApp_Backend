@@ -36,6 +36,7 @@ public class LoginService {
         }
         PersonDTO p = PersonBuilder.toPersonDTO(person.get());
         System.out.println(person.get().getClass().getSimpleName());
-        return new LoginDetails(p.getId(), person.get().getClass().getSimpleName());
+        return null;
+        //return new LoginDetails(p.getId(), person.get().getClass().getSimpleName());
     }
 }

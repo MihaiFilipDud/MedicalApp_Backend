@@ -8,12 +8,15 @@ public class LoginDetails {
 
     private String role;
 
+    private String jwt;
+
     public LoginDetails() {
     }
 
-    public LoginDetails(UUID personId, String role) {
+    public LoginDetails(UUID personId, String role, String jwt) {
         this.personId = personId;
         this.role = role;
+        this.jwt = jwt;
     }
 
     public UUID getPersonId() {
@@ -30,5 +33,13 @@ public class LoginDetails {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getJwt() {
+        return jwt;
+    }
+
+    public void setJwt(String jwt) {
+        this.jwt = jwt;
     }
 }

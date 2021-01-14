@@ -5,6 +5,7 @@ import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.json.JacksonJsonParser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 import ro.tuc.ds2020.dtos.AccountDTO;
 import ro.tuc.ds2020.dtos.MedicationPlanDTO;
@@ -37,6 +38,7 @@ public class DoctorController {
     }
 
     @GetMapping()
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<List<DoctorDTO>> getDoctors() {
 
         List<DoctorDTO> dtos = doctorService.findDoctors();
@@ -51,12 +53,14 @@ public class DoctorController {
     }
 
     @PostMapping()
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<UUID> insertProsumer(@RequestBody DoctorDTO doctorDTO) {
         UUID doctorID = doctorService.insert(doctorDTO);
         return new ResponseEntity<>(doctorID, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/{id}")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<DoctorDTO> getDoctor(@PathVariable("id") UUID doctorId) {
         DoctorDTO dto = doctorService.findDoctorById(doctorId);
         System.out.println(dto);
@@ -65,6 +69,7 @@ public class DoctorController {
     }
 
     @PostMapping(value = "/delete/{id}")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<DoctorDTO> deleteDoctor(@PathVariable("id") UUID doctorId) {
         doctorService.deleteById(doctorId);
         return new ResponseEntity<>(new DoctorDTO(), HttpStatus.OK);
@@ -72,6 +77,7 @@ public class DoctorController {
 
 
     @PostMapping(value = "/update/{id}")
+    @Secured({"ROLE_DOCTOR"})
     public ResponseEntity<UUID> updateDoctor(@RequestBody DoctorDTO doctorDTO) {
         UUID doctorID = doctorService.update(doctorDTO);
         return new ResponseEntity<>(doctorID, HttpStatus.OK);
