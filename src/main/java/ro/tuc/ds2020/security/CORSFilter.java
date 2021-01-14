@@ -12,7 +12,7 @@ import java.util.List;
 @Configuration
 public class CORSFilter implements Filter {
 
-    private final List<String> allowedOrigins = Arrays.asList("http://localhost:3000", "https://mihaifilipdud-frontend-sd.herokuapp.com/");
+    private final List<String> allowedOrigins = Arrays.asList("http://localhost:3000", "https://mihaifilipdud-frontend-sd.herokuapp.com");
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         // Lets make sure that we are working with HTTP (that is, against HttpServletRequest and HttpServletResponse objects)
         if (req instanceof HttpServletRequest && res instanceof HttpServletResponse) {
