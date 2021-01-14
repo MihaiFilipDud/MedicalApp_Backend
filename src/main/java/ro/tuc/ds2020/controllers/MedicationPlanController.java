@@ -33,7 +33,7 @@ public class MedicationPlanController {
 
     @PostMapping()
     @Secured({"ROLE_DOCTOR"})
-    public ResponseEntity<UUID> insertProsumer(@Valid @RequestBody MedicationPlanDTO medicationPlanDTO) {
+    public ResponseEntity<?> insertProsumer(@Valid @RequestBody MedicationPlanDTO medicationPlanDTO) {
         UUID medicationPlanID = medicationPlanService.insert(medicationPlanDTO);
         return new ResponseEntity<>(medicationPlanID, HttpStatus.CREATED);
     }

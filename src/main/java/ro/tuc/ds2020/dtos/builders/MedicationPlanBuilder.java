@@ -21,7 +21,7 @@ public class MedicationPlanBuilder {
                 medicationPlan.getIntakeIntervalStart(),
                 medicationPlan.getIntakeIntervalEnd(),
                 medicationPlan.getTreatmentStart(),
-                medicationPlan.getIntakeIntervalEnd(),
+                medicationPlan.getTreatmentEnd(),
                 meds);
     }
 
